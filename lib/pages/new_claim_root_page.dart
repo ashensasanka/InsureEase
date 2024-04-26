@@ -18,13 +18,14 @@ class _NewClaimRootPageState extends State<NewClaimRootPage> {
   List<Plant> favorites = [];
   List<Plant> myCart = [];
   int _bottomNavIndex = 0;
+  String docName = '${DateTime.now().millisecondsSinceEpoch}';
 
   //List of the pages
   List<Widget> _widgetOptions() {
     return [
-      const AddClaim(),
+      AddClaim(docName: docName,),
       // UploadImgPage(),
-      AddImagePage(),
+      AddImagePage(docName: docName,),
       // CartPage(addedToCartPlants: myCart,),
       // const ProfilePage(),
     ];

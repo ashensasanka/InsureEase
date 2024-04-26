@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class HomeController extends GetxController{
   // defined the variables as FirebaseFirestore store data as key value and FirebaseStorage store data as files
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   //Defined the Collections variables of database
   late CollectionReference logdetailsCollection;
   late CollectionReference productCollection;
@@ -91,12 +93,13 @@ class HomeController extends GetxController{
   @override
   void onInit() async {
     // TODO: implement onInit
+    User? user = auth.currentUser;
 
     productCollection = firestore.collection('shop');
     categoryCollection = firestore.collection('category');
     // logdetailsCollection = firestore.collection('logdetails');
     // chatlogCollection = firestore.collection('chatlogdetails');
-    postdetailsCollection = firestore.collection('postdetails'); //postShowUi
+    postdetailsCollection = firestore.collection('claimdata${user?.uid}'); //postShowUi
     // messageCollection = firestore.collection('message');
     cartCollection = firestore.collection('approved_post');
     videoAddCollection = firestore.collection('videos');
@@ -149,7 +152,7 @@ class HomeController extends GetxController{
 
   // Add Post into postdetails collection
   // DateTime now = DateTime.now();
-  addPost(File? selectedImage, String filetype) async {
+  addPost(File? selectedImage, String filetype, String docName) async {
 
     try {
       if (selectedImage == null) {
@@ -157,7 +160,7 @@ class HomeController extends GetxController{
         return;
       }
 
-      final imagePath = 'post/ashenfdbd${DateTime.now().millisecondsSinceEpoch}';
+      final imagePath = 'claim/claim${DateTime.now().millisecondsSinceEpoch}';
       final Reference storageReference = storage.ref().child(imagePath);
 
       // Specify content type as 'image/jpeg'
@@ -166,16 +169,14 @@ class HomeController extends GetxController{
       await storageReference.putFile(selectedImage, metadata);
       final String imageUrl = await storageReference.getDownloadURL();
 
-      final DocumentReference doc = postdetailsCollection.doc();
+      final DocumentReference doc = postdetailsCollection.doc(docName);
       final PostDetails postdetails = PostDetails(
-        id: doc.id,
-        achive_name: 'achivementNameCtrl.text',
         filetype: filetype,
-        image: imageUrl // Add this field to your ChatDetails model
+        imageUrl: imageUrl // Add this field to your ChatDetails model
       );
 
       final Map<String, dynamic> postdetailsJson = postdetails.toJson();
-      await doc.set(postdetailsJson);
+      await doc.update(postdetailsJson);
 
       Get.snackbar('Success', 'Post added successfully', colorText: Colors.green);
       setValuesDefault();
@@ -251,23 +252,23 @@ class HomeController extends GetxController{
   // }
   //
   // Add cart details into cart collection
-  addCart(int index){
-    try {
-      DocumentReference doc = cartCollection.doc();
-      PostDetails product = PostDetails(
-        id:doc.id,
-        image:postShowUi[index].image,
-        achive_name: postShowUi[index].achive_name,
-        filetype:postShowUi[index].filetype
-      );
-      final productJson = product.toJson();
-      doc.set(productJson);
-      Get.snackbar('Success', 'Approved Post added successfully', colorText: Colors.green);
-      setValuesDefault();
-    } catch (e) {
-      Get.snackbar('Error', e.toString(), colorText: Colors.red);
-    }
-  }
+  // addCart(int index){
+  //   try {
+  //     DocumentReference doc = cartCollection.doc();
+  //     PostDetails product = PostDetails(
+  //       id:doc.id,
+  //       image:postShowUi[index].image,
+  //       achive_name: postShowUi[index].achive_name,
+  //       filetype:postShowUi[index].filetype
+  //     );
+  //     final productJson = product.toJson();
+  //     doc.set(productJson);
+  //     Get.snackbar('Success', 'Approved Post added successfully', colorText: Colors.green);
+  //     setValuesDefault();
+  //   } catch (e) {
+  //     Get.snackbar('Error', e.toString(), colorText: Colors.red);
+  //   }
+  // }
   // addVideos(String by, String level, String name, String thumb, String url){
   //   try {
   //     DocumentReference doc = videoAddCollection.doc();

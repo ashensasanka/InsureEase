@@ -3,23 +3,16 @@ part 'postdetails.g.dart';
 
 @JsonSerializable()
 class PostDetails {
-  @JsonKey(name:"id")
-  String? id;
 
   @JsonKey(name:"image")
-  String? image;
-
-  @JsonKey(name:"achive_name")
-  String? achive_name;
+  String? imageUrl;
 
   @JsonKey(name:"filetype")
   String? filetype;
 
 
   PostDetails({
-    this.id,
-    this.image,
-    this.achive_name,
+    this.imageUrl,
     this.filetype
   });
 

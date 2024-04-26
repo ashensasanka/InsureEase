@@ -33,7 +33,8 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
       'cardholder_name':'',
       'card_number':'',
       'expire_date':'',
-      'roal':widget.userType
+      'roal':widget.userType,
+      'approval':'Pending'
     });
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => UserAuthPage(userType: widget.userType,)));

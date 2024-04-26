@@ -7,16 +7,12 @@ part of 'postdetails.dart';
 // **************************************************************************
 
 PostDetails _$PostDetailsFromJson(Map<String, dynamic> json) => PostDetails(
-      id: json['id'] as String?,
-      image: json['image'] as String?,
-      achive_name: json['achive_name'] as String?,
+      imageUrl: json['image'] as String?,
       filetype: json['filetype'] as String?,
     );
 
 Map<String, dynamic> _$PostDetailsToJson(PostDetails instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'image': instance.image,
-      'achive_name': instance.achive_name,
+      'imageUrl': instance.imageUrl,
       'filetype': instance.filetype,
     };

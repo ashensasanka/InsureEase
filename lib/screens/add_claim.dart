@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddClaim extends StatefulWidget {
-  const AddClaim({super.key});
+  final String docName;
+  AddClaim({super.key, required this.docName});
 
   @override
   State<AddClaim> createState() => _AddClaimState();
@@ -21,6 +22,7 @@ class _AddClaimState extends State<AddClaim> {
   String selectedInsuranceType = '';
   String selectedTypeAccident = '';
   String selectedTypeIncident = '';
+  bool isSelected = false;
 
 
   Future<void> _submitDataToFirestore() async {
@@ -31,18 +33,26 @@ class _AddClaimState extends State<AddClaim> {
 
     // Add your Firestore collection name
     CollectionReference claimDataCollection = firestore.collection('claimdata${user?.uid}');
+    QuerySnapshot querySnapshot = await claimDataCollection.get();
+    int claimLength = querySnapshot.docs.length;
+    String registerNumber = _textFieldValue;
+    double doubleValue = double.parse(registerNumber);
 
     // Add data to Firestore
     try {
-      await claimDataCollection.add({
+      await claimDataCollection.doc(widget.docName).set({
+        'claimIndex':claimLength,
         'vehicle': selectedVehicle,
         'model': selectedModel,
         'year': selectedYear,
         'insuranceType': selectedInsuranceType,
         'typeofAccident': selectedTypeAccident,
         'typeofIncident': selectedTypeIncident,
-        'registrationNumber': _textFieldValue,
+        'registrationNumber': doubleValue,
         'expiryDate': _dateController.text,
+        'imageUrl':'',
+        'claimId':'LA${widget.docName}',
+        'isSelected':isSelected
         // Add other fields as needed
       });
       setState(() {

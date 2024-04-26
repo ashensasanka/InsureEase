@@ -1,32 +1,48 @@
 import 'package:app/screens/add_claim.dart';
 import 'package:app/screens/widget/AppBarWidget.dart';
 import 'package:app/screens/widget/DrawerWidget.dart';
-import 'package:app/screens/widget/plant_widget.dart';
+import 'package:app/screens/widget/claim_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../constants.dart';
+import '../models/claims.dart';
 import '../models/plants.dart';
 import '../pages/new_claim_root_page.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Claims> claimsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchClaims(); // Call the method to fetch claims when the widget initializes
+  }
+
+  // Method to fetch claims from Firestore
+  void fetchClaims() async {
+    List<Claims> claims = await Claims.getClaimsFromFirestore();
+    setState(() {
+      claimsList = claims; // Update the state with retrieved claims
+    });
+  }
   @override
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     Size size = MediaQuery.of(context).size;
 
-    List<Plant> _plantList = Plant.plantList;
+    List<Plant> plantList = Plant.plantList;
 
     //Plants category
-    List<String> _plantTypes = [
+    List<String> plantTypes = [
       'Your Insured Cars',
     ];
 
@@ -44,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   width: 200,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _plantTypes.length,
+                    itemCount: plantTypes.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -57,13 +73,14 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           child: Text(
-                            _plantTypes[index],
+                            plantTypes[index],
                             style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: selectedIndex == index
-                                    ? FontWeight.bold
-                                    : FontWeight.w300,
-                                color: Colors.black),
+                              fontSize: 16.0,
+                              fontWeight: selectedIndex == index
+                                  ? FontWeight.bold
+                                  : FontWeight.w300,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       );
@@ -75,16 +92,16 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: size.height * .25,
               child: ListView.builder(
-                itemCount: _plantList.length,
+                itemCount: plantList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      if (_plantList[index].isAdd) {
+                      if (plantList[index].isAdd) {
                         Navigator.push(
                           context,
                           PageTransition(
-                            child: NewClaimRootPage(),
+                            child: const NewClaimRootPage(),
                             type: PageTransitionType.bottomToTop,
                           ),
                         );
@@ -93,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           PageTransition(
                             child: DetailPage(
-                              plantId: _plantList[index].plantId,
+                              claimIndex: plantList[index].plantId,
                             ),
                             type: PageTransitionType.bottomToTop,
                           ),
@@ -103,6 +120,12 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 190,
                       margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: plantList[index].isAdd
+                            ? const Color(0xfffef6eb)
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Stack(
                         children: [
                           Positioned(
@@ -111,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                             top: 50,
                             bottom: 50,
                             child: Image.asset(
-                              _plantList[index].imageURL,
+                              plantList[index].imageURL,
                             ),
                           ),
                           Positioned(
@@ -121,14 +144,14 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _plantList[index].category,
+                                  plantList[index].category,
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
                                   ),
                                 ),
                                 Text(
-                                  _plantList[index].plantName,
+                                  plantList[index].plantName,
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 15,
@@ -138,17 +161,18 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          _plantList[index].isAdd
-                              ? Positioned(
+                          plantList[index].isAdd
+                              ? const Positioned(
                                   bottom: 40,
                                   right: 20,
                                   child: Text(
                                     'Add New Claim',
                                     style: TextStyle(
-                                        color: Color(
-                                          0xfff9a130,
-                                        ),
-                                        fontSize: 20),
+                                      color: Color(
+                                        0xfff9a130,
+                                      ),
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 )
                               : Positioned(
@@ -160,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                       vertical: 2,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Color(
+                                      color: const Color(
                                         0xfffef6eb,
                                       ),
                                       borderRadius: BorderRadius.circular(
@@ -168,9 +192,9 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     child: Text(
-                                      _plantList[index].price.toString() +
+                                      plantList[index].price.toString() +
                                           r' Claim',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xfff9a130),
                                         fontSize: 16,
                                       ),
@@ -178,12 +202,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                         ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: _plantList[index].isAdd
-                            ? Color(0xfffef6eb)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                   );
@@ -204,7 +222,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               height: size.height * .5,
               child: ListView.builder(
-                itemCount: _plantList.length,
+                itemCount: claimsList.length,
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
@@ -213,12 +231,14 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         PageTransition(
-                            child:
-                                DetailPage(plantId: _plantList[index].plantId),
-                            type: PageTransitionType.bottomToTop),
+                          child: DetailPage(
+                            claimIndex: claimsList[index].claimIndex,
+                          ),
+                          type: PageTransitionType.bottomToTop,
+                        ),
                       );
                     },
-                    child: PlantWidget(index: index, plantList: _plantList),
+                    child: ClaimWidget(index: index, claimList: claimsList),
                   );
                 },
               ),

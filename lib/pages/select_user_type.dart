@@ -46,8 +46,9 @@ class _SelectUserTypeState extends State<SelectUserType> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            UserAuthPage(userType: 'customer'),
+                        builder: (context) => UserAuthPage(
+                          userType: 'customer',
+                        ),
                       ),
                     );
                   },
@@ -57,20 +58,29 @@ class _SelectUserTypeState extends State<SelectUserType> {
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 4,
-                              color: Colors.black12.withOpacity(.2),
-                              offset: const Offset(2, 2))
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.black12.withOpacity(.2),
+                          offset: const Offset(2, 2),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(100),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xffF9A130),
+                          Color(0xffF9A130),
                         ],
-                        borderRadius: BorderRadius.circular(100),
-                        gradient: LinearGradient(
-                            colors: [Color(0xffF9A130), Color(0xffF9A130)])),
-                    child: Text('Customer',
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.75),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    child: Text(
+                      'Customer',
+                      style: TextStyle(
+                        color: Colors.black.withOpacity(0.75),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -82,8 +92,9 @@ class _SelectUserTypeState extends State<SelectUserType> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            UserAuthPage(userType: 'claimsagent'),
+                        builder: (context) => UserAuthPage(
+                          userType: 'claimsagent',
+                        ),
                       ),
                     );
                   },
@@ -93,41 +104,33 @@ class _SelectUserTypeState extends State<SelectUserType> {
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 4,
-                              color: Colors.black12.withOpacity(.2),
-                              offset: const Offset(2, 2))
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.black12.withOpacity(.2),
+                          offset: const Offset(2, 2),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(100),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xffF9A130),
+                          Color(0xffF9A130),
                         ],
-                        borderRadius: BorderRadius.circular(100),
-                        gradient: LinearGradient(
-                            colors: [Color(0xffF9A130), Color(0xffF9A130)])),
-                    child: Text('Claims Agent',
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.75),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    child: Text(
+                      'Claims Agent',
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.75),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 120,
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => AdminLoginPage()),
-                //     );
-                //   },
-                //   child: Text(
-                //     'Admin login',
-                //     style: TextStyle(
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.bold,
-                //       color: Colors.black,
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

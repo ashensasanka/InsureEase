@@ -1,3 +1,4 @@
+import 'package:app/screens/admin_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -33,12 +34,12 @@ class _LearnerLoginPageState extends State<AdminLoginPage> {
         email: email.text,
         password: pass.text,
       );
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => DashBoardAdmin(),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AdminPage(),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'invalid-credential'){

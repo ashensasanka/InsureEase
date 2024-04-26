@@ -1,4 +1,7 @@
+import 'package:app/pages/customer_root_page.dart';
 import 'package:app/pages/select_user_type.dart';
+import 'package:app/screens/quizes_page.dart';
+import 'package:app/screens/video_tutorials.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +37,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: SelectUserType(),
+      routes: {
+        // '/': (context) => HoverPage(),
+        '/videos': (context) => VideoTutorialPage(), // Default route to SignInPage
+        '/home': (context) => CustomerRootPage(), // Route to HomePage
+        '/quizes': (context) => QuizesPage(), // Route to ItemPage
+        // '/cartPage': (context) => CartPage()
+        // Other routes...
+      },
     );
   }
 }

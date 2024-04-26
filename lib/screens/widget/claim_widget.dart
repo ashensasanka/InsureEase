@@ -1,18 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../constants.dart';
+import '../../models/claims.dart';
 import '../../models/plants.dart';
 import '../detail_page.dart';
 
-class PlantWidget extends StatelessWidget {
-  const PlantWidget({
-    Key? key, required this.index, required this.plantList,
+class ClaimWidget extends StatelessWidget {
+  const ClaimWidget({
+    Key? key,
+    required this.index,
+    required this.claimList,
   }) : super(key: key);
 
   final int index;
-  final List<Plant> plantList;
+  final List<Claims> claimList;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class PlantWidget extends StatelessWidget {
             context,
             PageTransition(
                 child: DetailPage(
-                  plantId: plantList[index].plantId,
+                  claimIndex: claimList[index].claimIndex,
                 ),
                 type: PageTransitionType.bottomToTop));
       },
@@ -48,29 +50,28 @@ class PlantWidget extends StatelessWidget {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
-                    color: Constants.primaryColor.withOpacity(.8),
+                    color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                 ),
                 Positioned(
-                  bottom: 5,
+                  bottom: 0,
                   left: 0,
                   right: 0,
                   child: SizedBox(
-                    height: 80.0,
-                    child:
-                    Image.asset(plantList[index].imageURL),
+                    height: 60.0,
+                    child: Image.asset('assets/images/claimicon.png',scale: 0.1,),
                   ),
                 ),
                 Positioned(
                   bottom: 5,
-                  left: 80,
+                  left: 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(plantList[index].category),
+                      Text(claimList[index].claimId),
                       Text(
-                        plantList[index].plantName,
+                        claimList[index].typeofAccident,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -84,13 +85,9 @@ class PlantWidget extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.only(right: 10),
-              child: Text(
-                r'$' + plantList[index].price.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  color: Constants.primaryColor,
-                ),
+              child: Icon(
+                Icons.chevron_right,
+                size: 35,
               ),
             )
           ],

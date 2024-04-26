@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import '../controller/home_controller.dart';
 
 class AddImagePage extends StatefulWidget {
-  const AddImagePage({Key? key});
+  final String docName;
+  AddImagePage({Key? key, required this.docName});
 
   @override
   State<AddImagePage> createState() => _AddImagePageState();
@@ -80,7 +81,7 @@ class _AddImagePageState extends State<AddImagePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      ctrl.addPost(_image, 'image');
+                      ctrl.addPost(_image, 'image', widget.docName);
                     },
                     child: Text(
                       '    Submit    ',

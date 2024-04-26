@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../login_register_page/user_loginorregister_page.dart';
-import '../pages/root_page.dart';
+import '../pages/claim_agent_page.dart';
+import '../pages/customer_root_page.dart';
+import '../screens/admin_page.dart';
 
 class UserAuthPage extends StatefulWidget {
   final String userType;
@@ -30,14 +32,13 @@ class _UserAuthPageState extends State<UserAuthPage> {
                   if (documentSnapshot.hasData && documentSnapshot.data != null) {
                     String userRole = documentSnapshot.data!.get('roal');
                     if (userRole == 'customer') {
-                      return RootPage();
+                      return CustomerRootPage();
                       // return const DashBoard();
-                    } else if (userRole == 'vendor') {
-                      return const CircularProgressIndicator();
-                      // return const DashBoardVendor();
-                      // return VerifyEmailPage();
-                    } else {
-                      return const CircularProgressIndicator();
+                    } else if (userRole == 'admin'){
+                      return const AdminPage();
+                    }
+                    else {
+                      return const ClaimAgentPage();
                       // return const DashBoardDisp();
                     }
                   } else {

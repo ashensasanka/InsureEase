@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../pages/select_user_type.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -48,7 +51,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               // Navigate to Home Page
               Navigator.pop(context); // Close Drawer
-              Navigator.pushNamed(context, '/HomePage');
+              Navigator.pushNamed(context, '/homePage');
             },
           ),
 
@@ -59,7 +62,7 @@ class DrawerWidget extends StatelessWidget {
               color: Colors.red,
             ),
             title: Text(
-              "My Account",
+              "Quizzes",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -68,18 +71,18 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               // Navigate to My Account Page
               Navigator.pop(context); // Close Drawer
-              Navigator.pushNamed(context, '/my_account');
+              Navigator.pushNamed(context, '/quizes');
             },
           ),
 
           // My Orders
           ListTile(
             leading: Icon(
-              CupertinoIcons.cart_fill,
+              CupertinoIcons.play_circle,
               color: Colors.red,
             ),
             title: Text(
-              "My Orders",
+              "Video Tutorials",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -88,7 +91,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               // Navigate to My Orders Page
               Navigator.pop(context); // Close Drawer
-              Navigator.pushNamed(context, '/my_orders');
+              Navigator.pushNamed(context, '/videos');
             },
           ),
 
@@ -145,9 +148,22 @@ class DrawerWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            onTap: () {
-              // Implement log out logic here
-
+            onTap: () async{
+              // Sign out the current user
+              try {
+                await FirebaseAuth.instance.signOut();
+                // Navigate to the login screen or home screen after sign out
+                // Example:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelectUserType(),
+                  ),
+                );
+              } catch (e) {
+                print('Error signing out: $e');
+                // Handle signout error
+              }
             },
           ),
         ],
