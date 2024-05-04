@@ -45,11 +45,218 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
       body: Stack(
         children: [
-          //Close icon
           Positioned(
-            top: 50,
-            left: 20,
-            right: 20,
+            top: 100,
+            left: 50,
+            child: Text(
+              'Claim Description',
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 290,
+            left: 0,
+            right: 0,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
+                  height: size.height * .4,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Color(0xfffef6eb),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        claimsList[widget.claimIndex].claimId,
+                        style: TextStyle(
+                          color: Constants.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                claimsList[widget.claimIndex].typeofAccident,
+                                style: TextStyle(
+                                  color: Constants.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                              Text(
+                                claimsList[widget.claimIndex].typeofIncident,
+                                style: TextStyle(
+                                  color: Constants.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                claimsList[widget.claimIndex].vehicle,
+                                style: TextStyle(
+                                  color: Constants.blackColor,
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                claimsList[widget.claimIndex].model,
+                                style: TextStyle(
+                                  color: Constants.blackColor,
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                claimsList[widget.claimIndex]
+                                    .registrationNumber
+                                    .toInt()
+                                    .toString(),
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  color: Constants.primaryColor,
+                                ),
+                              ),
+                              Text(
+                                claimsList[widget.claimIndex].year,
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  color: Constants.primaryColor,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                claimsList[widget.claimIndex].insuraceType,
+                                style: TextStyle(
+                                  color: Constants.blackColor,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Expire Date: ${claimsList[widget.claimIndex].expiryDate}',
+                                style: TextStyle(
+                                  color: Constants.blackColor,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 220,
+            left: 50,
+            right: 0,
+            child: Text(
+              'Claim Status',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+            ),
+          ),
+          Positioned(
+            bottom: 160,
+            left: 30,
+            right: 0,
+            child: Row(
+              children: [
+                Container(
+                  width: 100,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xffF9A130),
+                    borderRadius: BorderRadius.circular(
+                        10), // Adjust the radius as needed
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Approved',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: 100,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xff828282),
+                    borderRadius: BorderRadius.circular(
+                        10), // Adjust the radius as needed
+                  ),
+                  child: Center(
+                    child: Text(
+                      'On-hold',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: 120,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xff828282),
+                    borderRadius: BorderRadius.circular(
+                        10), // Adjust the radius as needed
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Not approved',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 100,
+            bottom: 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -58,167 +265,25 @@ class _DetailPageState extends State<DetailPage> {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    height: 40,
-                    width: 40,
+                    width: 200,
+                    height: 33,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Color(0xfffef6eb),
+                      color: Color(0xffF9A130),
+                      borderRadius: BorderRadius.circular(
+                          10), // Adjust the radius as needed
                     ),
-                    child: Icon(
-                      Icons.close,
-                      color: Color(0xfff9a130),
+                    child: Center(
+                      child: Text(
+                        'Return to Home screen',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
               ],
-            ),
-          ),
-          //Image
-          Positioned(
-            top: 100,
-            left: 20,
-            right: 20,
-            child: Container(
-              width: size.width * .8,
-              height: size.height * .8,
-              padding: const EdgeInsets.all(10),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 10,
-                    left: 0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                          20), // Set the border radius to make it rounded
-                      child: SizedBox(
-                        height: 270,
-                        width: 330,
-                        child: Image.network(
-                          claimsList[widget.claimIndex].imageURL,
-                          fit: BoxFit
-                              .cover, // Optionally, set the fit property to cover the entire widget
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
-              height: size.height * .5,
-              width: size.width,
-              decoration: BoxDecoration(
-                color: Color(0xfffef6eb),
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    claimsList[widget.claimIndex].claimId,
-                    style: TextStyle(
-                      color: Constants.primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            claimsList[widget.claimIndex].typeofAccident,
-                            style: TextStyle(
-                              color: Constants.primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
-                            ),
-                          ),
-                          Text(
-                            claimsList[widget.claimIndex].typeofIncident,
-                            style: TextStyle(
-                              color: Constants.primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            claimsList[widget.claimIndex].vehicle,
-                            style: TextStyle(
-                              color: Constants.blackColor,
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            claimsList[widget.claimIndex].model,
-                            style: TextStyle(
-                              color: Constants.blackColor,
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            claimsList[widget.claimIndex]
-                                .registrationNumber
-                                .toInt()
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              color: Constants.primaryColor,
-                            ),
-                          ),
-                          Text(
-                            claimsList[widget.claimIndex].year,
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              color: Constants.primaryColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            claimsList[widget.claimIndex].insuraceType,
-                            style: TextStyle(
-                              color: Constants.blackColor,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Expire Date: ${claimsList[widget.claimIndex].expiryDate}',
-                            style: TextStyle(
-                              color: Constants.blackColor,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             ),
           ),
         ],

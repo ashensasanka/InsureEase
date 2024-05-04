@@ -1,5 +1,6 @@
 import 'package:app/pages/customer_root_page.dart';
 import 'package:app/pages/select_user_type.dart';
+import 'package:app/screens/forum_page.dart';
 import 'package:app/screens/quizes_page.dart';
 import 'package:app/screens/video_tutorials.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/videos': (context) => VideoTutorialPage(), // Default route to SignInPage
         '/home': (context) => CustomerRootPage(), // Route to HomePage
         '/quizes': (context) => QuizesPage(), // Route to ItemPage
-        // '/cartPage': (context) => CartPage()
+        '/community': (context) => ForumPage()
         // Other routes...
       },
     );

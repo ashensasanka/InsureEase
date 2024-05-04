@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:app/pages/payment_options.dart';
 import 'package:app/pages/suppliers_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -6,6 +7,7 @@ import '../constants.dart';
 import '../models/plants.dart';
 import '../screens/chat_page.dart';
 import '../screens/home_page.dart';
+import 'new_claim_root_page.dart';
 
 class CustomerRootPage extends StatefulWidget {
   const CustomerRootPage({Key? key}) : super(key: key);
@@ -24,7 +26,8 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
     return [
       const HomePage(),
       const ChatPage(),
-      const SuppliersPage()
+      const SuppliersPage(),
+      const PaymentOption()
     ];
   }
 
@@ -33,7 +36,7 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
     Icons.home,
     Icons.chat,
     Icons.person_pin_circle_outlined,
-    Icons.help,
+    Icons.payments,
   ];
 
   //List of the pages titles
@@ -41,7 +44,7 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
     'Home',
     'Ask the Bot',
     'Roadside Assistance',
-    'Profile',
+    'Payment Options',
   ];
 
   @override
@@ -76,10 +79,10 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, PageTransition(
-              child: const HomePage(), type: PageTransitionType.bottomToTop)
+              child: const NewClaimRootPage(), type: PageTransitionType.bottomToTop)
           );
         },
-        child: Icon(Icons.home),
+        child: Icon(Icons.add,size: 37,),
         backgroundColor: Constants.primaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
