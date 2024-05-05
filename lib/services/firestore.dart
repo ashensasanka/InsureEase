@@ -9,6 +9,7 @@ class FireStoreService {
   final CollectionReference videos = FirebaseFirestore.instance.collection('videos');
   final CollectionReference cart = FirebaseFirestore.instance.collection('cart');
   final CollectionReference user = FirebaseFirestore.instance.collection('login_users');
+  final CollectionReference community = FirebaseFirestore.instance.collection('community');
   final FirebaseStorage storage = FirebaseStorage.instance;
 
   Stream<QuerySnapshot> getSupplierStream() {
@@ -89,6 +90,11 @@ class FireStoreService {
       'status': newStatus,
       'timestamp': Timestamp.now(),
     });
+  }
+
+  Future<void> deleteNote(String docID) {
+    // Delete the document with specified docID from 'notes' collection
+    return community.doc(docID).delete();
   }
 
   // Method to delete a note from Firestore
