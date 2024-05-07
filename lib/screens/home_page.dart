@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
+      backgroundColor: Color(0xffF5F5F5),
       body: RefreshIndicator(
         onRefresh:() async {
           fetchClaims();

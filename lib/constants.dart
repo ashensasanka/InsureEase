@@ -7,8 +7,8 @@ class Constants {
   static var blackColor = Colors.black54;
 
   //Onboarding texts
-  static var titleOne = "Learn more about plants";
-  static var descriptionOne = "Read how to care for plants in our rich plants guide.";
+  static var titleOne = "Welcome to Insurease";
+  static var descriptionOne = "";
   static var titleTwo = "Find a plant lover friend";
   static var descriptionTwo = "Are you a plant lover? Connect with other plant lovers.";
   static var titleThree = "Plant a tree, green the Earth";

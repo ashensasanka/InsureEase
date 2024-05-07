@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/dropdown.dart';
+
 class AddClaim extends StatefulWidget {
   final String docName;
   AddClaim({super.key, required this.docName});
@@ -122,11 +124,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection1(
                 onChanged: (value) {
                   setState(() {
                     selectedVehicle = value;
-                  });
+                  },);
                 },
               ),
 
@@ -137,11 +139,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection2(
                 onChanged: (value) {
                   setState(() {
                     selectedModel = value;
-                  });
+                  },);
                 },
               ),
               SizedBox(height: 10,),
@@ -151,11 +153,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection3(
                 onChanged: (value) {
                   setState(() {
                     selectedYear = value;
-                  });
+                  },);
                 },
               ),
               SizedBox(height: 10,),
@@ -165,11 +167,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection4(
                 onChanged: (value) {
                   setState(() {
                     selectedInsuranceType = value;
-                  });
+                  },);
                 },
               ),
               SizedBox(height: 10,),
@@ -186,7 +188,7 @@ class _AddClaimState extends State<AddClaim> {
                   onChanged: (value) {
                     setState(() {
                       _textFieldValue = value;
-                    });
+                    },);
                   },
                   decoration: InputDecoration(
                     labelText: 'Enter Number',
@@ -233,11 +235,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection5(
                 onChanged: (value) {
                   setState(() {
                     selectedTypeIncident = value;
-                  });
+                  },);
                 },
               ),
               SizedBox(height: 10,),
@@ -247,11 +249,11 @@ class _AddClaimState extends State<AddClaim> {
                   fontSize: 18,
                 ),
               ),
-              DropdownSelection(
+              DropdownSelection6(
                 onChanged: (value) {
                   setState(() {
                     selectedTypeAccident = value;
-                  });
+                  },);
                 },
               ),
               ElevatedButton(
@@ -267,65 +269,4 @@ class _AddClaimState extends State<AddClaim> {
     );
   }
 }
-class DropdownSelection extends StatefulWidget {
-  final Function(String) onChanged;
 
-  const DropdownSelection({required this.onChanged});
-
-  @override
-  _DropdownSelectionState createState() => _DropdownSelectionState();
-}
-
-
-class _DropdownSelectionState extends State<DropdownSelection> {
-  String selectedValue = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 250,
-      height: 42,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: DropdownButton<String>(
-              value: selectedValue,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedValue = newValue!;
-                  widget.onChanged(selectedValue); // Pass selected value to parent widget
-                });
-              },
-
-              icon: Icon(
-                Icons.arrow_drop_down,
-                size: 1,
-              ), // Remove the default dropdown icon
-              items: <String>[
-                '',
-                'Option 1',
-                'Option 2',
-                'Option 3',
-                'Option 4'
-              ].map<DropdownMenuItem<String>>(
-                    (String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                },
-              ).toList(),
-            ),
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-          ), // Icon aligned to the right corner
-        ],
-      ),
-    );
-  }
-}

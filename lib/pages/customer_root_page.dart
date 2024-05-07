@@ -51,9 +51,11 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            SizedBox(width: 10,),
             Text(
               titleList[_bottomNavIndex],
               style: TextStyle(
@@ -69,7 +71,7 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
             )
           ],
         ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color(0xffF5F5F5),
         elevation: 0.0,
       ),
       body: IndexedStack(

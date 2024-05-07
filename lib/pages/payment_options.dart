@@ -45,7 +45,7 @@ class _PaymentOptionState extends State<PaymentOption> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
-                        10), // Adjust the radius as needed
+                        10),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),

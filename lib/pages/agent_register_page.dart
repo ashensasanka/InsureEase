@@ -107,11 +107,15 @@ class _AgentRegiterPageState extends State<AgentRegiterPage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Text('Register to get \nstarted with \nInsureEase!',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold
-                  ),),
+                  Image.asset('assets/images/logo2.png'),
+                  Text(
+                    ' Insurease',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(
                     height: 100,
                   ),

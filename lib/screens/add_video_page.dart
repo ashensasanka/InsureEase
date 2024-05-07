@@ -50,17 +50,15 @@ class _AddVideoPageState extends State<AddVideoPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 55.0, // Adjust the height as needed
-                child: TextField(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
                   controller: _titleController,
                   decoration: InputDecoration(
                     labelText: 'Title',
                     border: OutlineInputBorder(),
                   ),
                 ),
-              ),
+
             ),
             Text('Add Thumbnail'),
             GestureDetector(
@@ -157,11 +155,13 @@ class _AddVideoPageState extends State<AddVideoPage> {
     await StoreData().saveVideoData(
         _downloadVideoURL!,
         _downloadImageURL!,
-        _titleController.text);
+        _titleController.text,
+        _descriptionController.text);
     setState(() {
       _videoURL = null;
       _image = null;
       _titleController.clear();
+      _descriptionController.clear();
     });
   }
 }

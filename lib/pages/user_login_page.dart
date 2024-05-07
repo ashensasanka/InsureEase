@@ -79,9 +79,14 @@ class _UserLoginPageState extends State<UserLoginPage> {
                 const SizedBox(
                   height: 40,
                 ),
+                Image.asset('assets/images/logo2.png'),
                 Text(
-                  'Welcome Back \n to InsureEase !',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  ' Insurease',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(
                   height: 150,
@@ -106,14 +111,10 @@ class _UserLoginPageState extends State<UserLoginPage> {
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 14.5),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 4),
+                        borderSide: BorderSide(color: Colors.black, width: 4),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Colors.black),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                   ),
@@ -160,14 +161,10 @@ class _UserLoginPageState extends State<UserLoginPage> {
                       hintStyle:
                           const TextStyle(color: Colors.black, fontSize: 14.5),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 4),
+                        borderSide: BorderSide(color: Colors.black, width: 4),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Colors.black),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                   ),
@@ -243,12 +240,14 @@ class _UserLoginPageState extends State<UserLoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Forgot your Password?',
+                    Text(
+                      'Forgot your Password?',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                      ),),
+                      ),
+                    ),
                     TextButton(
                       onPressed: () {
                         // Navigator.push(

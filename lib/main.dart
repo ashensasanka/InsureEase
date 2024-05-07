@@ -1,4 +1,5 @@
 import 'package:app/pages/customer_root_page.dart';
+import 'package:app/pages/lets_start_page.dart';
 import 'package:app/pages/select_user_type.dart';
 import 'package:app/screens/forum_page.dart';
 import 'package:app/screens/quizes_page.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SelectUserType(),
+      home: StartPage(),
       routes: {
         // '/': (context) => HoverPage(),
         '/videos': (context) => VideoTutorialPage(), // Default route to SignInPage

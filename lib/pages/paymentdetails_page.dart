@@ -63,8 +63,8 @@ class _PaymentPageState extends State<PaymentPage> {
     super.initState();
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      String UID = user.uid ?? ''; // Get the user's email
-      // Now you can use the email to fetch user data
+      String UID = user.uid ?? '';
+
       _fetchUserData(UID);
     } else {
       print('User not logged in');
@@ -104,10 +104,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   hintText: 'Enter name',
                   filled: true,
                   fillColor: Colors
-                      .grey[200], // Set your desired background color here
+                      .grey[200],
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                        10.0), // Set the desired radius here
+                        10.0),
                     borderSide: BorderSide.none,
                   ),
                 ),
@@ -125,10 +125,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   hintText: 'Enter Card Number  ',
                   filled: true,
                   fillColor: Colors
-                      .grey[200], // Set your desired background color here
+                      .grey[200],
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                        10.0), // Set the desired radius here
+                        10.0),
                     borderSide: BorderSide.none,
                   ),
                 ),
@@ -146,7 +146,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       SizedBox(
                           height:
-                              10), // Add some spacing between the text and the TextFormField
+                              10),
                       Container(
                         width: 150, // Set the desired width here
                         child: TextFormField(
@@ -158,7 +158,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 200], // Set your desired background color here
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(
-                                  10.0), // Set the desired radius here
+                                  10.0),
                               borderSide: BorderSide.none,
                             ),
                           ),
@@ -179,7 +179,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       SizedBox(
                           height:
-                              10), // Add some spacing between the text and the TextFormField
+                              10),
                       Container(
                         width: 150, // Set the desired width here
                         child: TextFormField(
@@ -188,10 +188,10 @@ class _PaymentPageState extends State<PaymentPage> {
                             hintText: 'xxx',
                             filled: true,
                             fillColor: Colors.grey[
-                                200], // Set your desired background color here
+                                200],
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(
-                                  10.0), // Set the desired radius here
+                                  10.0), 
                               borderSide: BorderSide.none,
                             ),
                           ),

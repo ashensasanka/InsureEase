@@ -80,9 +80,14 @@ class _AgentLoginPageState extends State<AgentLoginPage> {
                 const SizedBox(
                   height: 40,
                 ),
+                Image.asset('assets/images/logo2.png'),
                 Text(
-                  'Welcome Back \n to InsureEase!',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  ' Insurease',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(
                   height: 150,

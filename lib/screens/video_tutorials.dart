@@ -38,18 +38,20 @@ class _VideoTutorialPageState extends State<VideoTutorialPage> {
                 child: TextFormField(
                   controller: _searchController,
                   onChanged: (value) {
-                    setState(() {}); // Refresh the UI when the text changes
+                    setState(() {});
                   },
                   decoration: InputDecoration(
                     hintText: 'Search...',
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const SizedBox(height: 0.0),
+                    suffixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          30.0), // Adjust the radius as needed
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                   ),
                 ),
               ),
+              Divider(thickness: 2.5,),
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('videos')
@@ -66,7 +68,7 @@ class _VideoTutorialPageState extends State<VideoTutorialPage> {
                     for (var video in videos!) {
                       final videoWidget = Column(
                         children: [
-                          SizedBox(height: 16), // Add space between rows
+                          SizedBox(height: 16),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.grey[200],
@@ -82,7 +84,7 @@ class _VideoTutorialPageState extends State<VideoTutorialPage> {
                                       width: 5,
                                     ),
                                     Container(
-                                      width: 180,
+                                      width: 140,
                                       height: 115,
                                       child: Stack(
                                         children: [
@@ -91,13 +93,13 @@ class _VideoTutorialPageState extends State<VideoTutorialPage> {
                                             child: Image.network(
                                               video['imageURL'],
                                               fit: BoxFit.cover,
-                                              width: double.maxFinite,
+                                              width: 130,
                                               height: 110,
                                             ),
                                           ),
                                           Positioned(
-                                            top: 25, // Adjust the position of the icon as needed
-                                            left: 55,
+                                            top: 25,
+                                            left: 35,
                                             child: IconButton(
                                                 onPressed: () {
                                                   Navigator.of(context).push(
@@ -112,25 +114,31 @@ class _VideoTutorialPageState extends State<VideoTutorialPage> {
                                                   );
                                                 },
                                                 icon: Icon(
-                                                  Icons.play_circle_fill, // Choose the icon you want
-                                                  size: 50, // Adjust the size of the icon as needed
-                                                  color: Colors.white, // Adjust the color of the icon as needed
+                                                  Icons.play_circle_fill,
+                                                  size: 50,
+                                                  color: Colors.white,
                                                 )
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
                                     Column(
+                                    mainAxisAlignment :MainAxisAlignment.start,
+                                    crossAxisAlignment : CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           video['name'],
                                           style: TextStyle(
-                                            fontWeight: FontWeight.bold, // Make the text bold
-                                            fontSize: 13, // Increase the font size
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        Text(
+                                          video['description'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
                                           ),
                                         ),
                                       ],

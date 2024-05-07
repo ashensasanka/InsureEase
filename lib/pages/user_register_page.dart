@@ -79,9 +79,9 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
                 child: Text(
                   message,
                   style: const TextStyle(color: Colors.white),
-                )),
+                ),),
           );
-        });
+        },);
   }
 
   bool isPasswordVisible = false;
@@ -106,11 +106,15 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Text('Register to get \nstarted with \nInsureEase!',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold
-                  ),),
+                  Image.asset('assets/images/logo2.png'),
+                  Text(
+                    ' Insurease',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(
                     height: 100,
                   ),

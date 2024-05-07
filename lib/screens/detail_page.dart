@@ -85,8 +85,8 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,7 @@ class _DetailPageState extends State<DetailPage> {
                                 style: TextStyle(
                                   color: Constants.primaryColor,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 30.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                               Text(
@@ -114,7 +114,7 @@ class _DetailPageState extends State<DetailPage> {
                                 claimsList[widget.claimIndex].vehicle,
                                 style: TextStyle(
                                   color: Constants.blackColor,
-                                  fontSize: 24.0,
+                                  fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -129,6 +129,7 @@ class _DetailPageState extends State<DetailPage> {
                             ],
                           ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
                                 claimsList[widget.claimIndex]
@@ -162,7 +163,7 @@ class _DetailPageState extends State<DetailPage> {
                                 'Expire Date: ${claimsList[widget.claimIndex].expiryDate}',
                                 style: TextStyle(
                                   color: Constants.blackColor,
-                                  fontSize: 20.0,
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
