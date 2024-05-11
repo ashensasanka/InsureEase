@@ -180,7 +180,7 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xfff9a130),
-          title: Text("Details of Customers"),
+          title: Text("Details of Supplier"),
           actions: [
             IconButton(
               onPressed: () {
@@ -198,25 +198,6 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
                 });
               },
               icon: Icon(_isDarkMode ? Icons.light_mode : Icons.dark_mode),
-            ),
-            IconButton(
-              onPressed: () async{
-                try {
-                  await FirebaseAuth.instance.signOut();
-                  // Navigate to the login screen or home screen after sign out
-                  // Example:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SelectUserType(),
-                    ),
-                  );
-                } catch (e) {
-                  print('Error signing out: $e');
-                  // Handle signout error
-                }
-              },
-              icon: Icon(Icons.logout),
             ),
           ],
         ),

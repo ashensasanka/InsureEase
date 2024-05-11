@@ -6,6 +6,7 @@ import '../login_register_page/user_loginorregister_page.dart';
 import '../pages/claim_agent_page.dart';
 import '../pages/customer_root_page.dart';
 import '../screens/admin_page.dart';
+import '../screens/claims_agent_page.dart';
 
 class UserAuthPage extends StatefulWidget {
   final String userType;
@@ -38,7 +39,7 @@ class _UserAuthPageState extends State<UserAuthPage> {
                       return const AdminPage();
                     }
                     else {
-                      return const ClaimAgentPage();
+                      return const ClaimsAgentPage();
                       // return const DashBoardDisp();
                     }
                   } else {
