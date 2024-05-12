@@ -179,23 +179,26 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
       theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xfff9a130),
-          title: Text("Details of Supplier"),
+          backgroundColor: Color(0xfffef6eb),
           actions: [
             IconButton(
               onPressed: () {
-                setState(() {
-                  _ascendingOrder = !_ascendingOrder;
-                });
+                setState(
+                  () {
+                    _ascendingOrder = !_ascendingOrder;
+                  },
+                );
               },
               icon: Icon(
                   _ascendingOrder ? Icons.arrow_upward : Icons.arrow_downward),
             ),
             IconButton(
               onPressed: () {
-                setState(() {
-                  _isDarkMode = !_isDarkMode;
-                });
+                setState(
+                  () {
+                    _isDarkMode = !_isDarkMode;
+                  },
+                );
               },
               icon: Icon(_isDarkMode ? Icons.light_mode : Icons.dark_mode),
             ),
@@ -223,7 +226,9 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
                       if (_searchText.isNotEmpty) {
                         notesList = notesList.where((note) {
                           final String noteText = note['supplierName'];
-                          return noteText.toLowerCase().contains(_searchText.toLowerCase());
+                          return noteText
+                              .toLowerCase()
+                              .contains(_searchText.toLowerCase());
                         }).toList();
                       }
                       if (!_ascendingOrder) {
@@ -235,20 +240,27 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
                           DocumentSnapshot document = notesList[index];
                           String docID = document.id;
 
-                          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                          Map<String, dynamic> data =
+                              document.data() as Map<String, dynamic>;
                           String noteText = data['supplierName'];
-                          String subtext = data['supplierAddress'] ?? ''; // Get subtext or use empty string if not available
+                          String subtext = data['supplierAddress'] ??
+                              ''; // Get subtext or use empty string if not available
 
                           return Padding(
-                            padding: EdgeInsets.only(bottom: 8.0,left: 8,right: 8), // Add space between items
+                            padding: EdgeInsets.only(
+                                bottom: 8.0,
+                                left: 8,
+                                right: 8), // Add space between items
                             child: Container(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+                                borderRadius: BorderRadius.circular(
+                                    10.0), // Adjust the radius as needed
                                 child: Container(
                                   color: Color(0xfff9a130),
                                   child: ListTile(
                                     title: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           noteText,
@@ -271,7 +283,8 @@ class _ClaimAgentPageState extends State<ClaimAgentPage> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          onPressed: () => openNoteBox(docID: docID),
+                                          onPressed: () =>
+                                              openNoteBox(docID: docID),
                                           icon: Icon(Icons.settings),
                                         ),
                                         IconButton(

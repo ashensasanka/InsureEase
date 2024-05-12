@@ -28,16 +28,16 @@ class ClaimWidget extends StatelessWidget {
                 child: DetailPage(
                   claimIndex: claimList[index].claimIndex,
                 ),
-                type: PageTransitionType.bottomToTop));
+                type: PageTransitionType.bottomToTop),);
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Constants.primaryColor.withOpacity(.1),
+          color: Constants.primaryColor.withOpacity(.2),
           borderRadius: BorderRadius.circular(10),
         ),
-        height: 80.0,
+        height: 65.0,
         padding: const EdgeInsets.only(left: 10, top: 10),
-        margin: const EdgeInsets.only(bottom: 10, top: 10),
+        margin: const EdgeInsets.only(bottom: 5, top: 5),
         width: size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,20 +47,18 @@ class ClaimWidget extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  width: 60.0,
-                  height: 60.0,
+                  width: 45.0,
+                  height: 45.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: SizedBox(
-                    height: 60.0,
-                    child: Image.asset('assets/images/claimicon.png',scale: 0.1,),
+                SizedBox(
+                  height: 45.0,
+                  child: Image.asset(
+                    'assets/images/claimicon.png',
+                    scale: 0.1,
                   ),
                 ),
                 Positioned(

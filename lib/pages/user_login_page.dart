@@ -270,27 +270,6 @@ class _UserLoginPageState extends State<UserLoginPage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 35,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AdminLoginPage()),
-                    );
-                  },
-                  child: Text(
-                    'Admin login',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      decoration: TextDecoration.underline,
-                      decorationThickness: 2.0,
-                    ),
-                  ),
-                ),
-                const SizedBox(
                   height: 20,
                 ),
               ],

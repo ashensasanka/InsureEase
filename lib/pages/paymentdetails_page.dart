@@ -48,6 +48,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<void> _updateUserData(String UID) async {
     try {
       await _firestore.collection('login_users').doc(UID).update({
+        'card_type':_selectedText,
         'card_number': cardNumberController.text,
         'cardholder_name': cardNameController.text,
         'expire_date': endDateController.text,
@@ -57,6 +58,7 @@ class _PaymentPageState extends State<PaymentPage> {
       print('Error updating user data: $e');
     }
   }
+  String? _selectedText;
 
   @override
   void initState() {
@@ -74,8 +76,9 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfffef6eb),
       appBar: AppBar(
-        backgroundColor: Color(0xffEEEEEE),
+        backgroundColor: Color(0xffF9A130),
         title: Text(
           'Enter Your Payment Details',
           style: TextStyle(
@@ -89,8 +92,56 @@ class _PaymentPageState extends State<PaymentPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: <Widget>[
+                  Radio(
+                    value: 'Visa', // Value representing the Visa option
+                    groupValue: _selectedText,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedText = value as String?;
+                        print(_selectedText);
+                      },);
+                    },
+                  ),
+                  Expanded(
+                    child: Text('Visa'),
+                  ),
+                  Radio(
+                    value: 'Master', // Value representing the Visa option
+                    groupValue: _selectedText,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedText = value as String?;
+                        print(_selectedText);
+                      },);
+                    },
+                  ),
+                  Expanded(
+                    child: Text('Master'),
+                  ),
+                  Radio(
+                    value: 'Amex', // Value representing the Visa option
+                    groupValue: _selectedText,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedText = value as String?;
+                        print(_selectedText);
+                      },);
+                    },
+                  ),
+                  Expanded(
+                    child: Text('Amex'),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15,),
+              Text(
+                'Selected: $_selectedText',
+                style: TextStyle(fontSize: 20),
+              ),
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Text(
                 'Cardholder Name ',
@@ -223,12 +274,12 @@ class _PaymentPageState extends State<PaymentPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OrderPlacePage(),
+                          builder: (context) => PaymentConfirmPage(),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffF9A130), // Change button color to black
+                      backgroundColor: Color(0xffF9A130),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

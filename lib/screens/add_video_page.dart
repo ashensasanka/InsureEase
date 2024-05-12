@@ -43,9 +43,6 @@ class _AddVideoPageState extends State<AddVideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Videos'),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -12,6 +12,7 @@ class _PaymentOptionState extends State<PaymentOption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2ea),
       body: Column(
         children: [
           Row(

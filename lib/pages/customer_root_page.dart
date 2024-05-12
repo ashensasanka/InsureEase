@@ -72,7 +72,6 @@ class _CustomerRootPageState extends State<CustomerRootPage> {
           ],
         ),
         backgroundColor: Color(0xffF5F5F5),
-        elevation: 0.0,
       ),
       body: IndexedStack(
         index: _bottomNavIndex,

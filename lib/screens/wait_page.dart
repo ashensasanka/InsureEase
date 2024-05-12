@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
-class PaymentConfirmPage extends StatefulWidget {
-  const PaymentConfirmPage({Key? key}) : super(key: key);
+class WaitAdminApprove extends StatefulWidget {
+  const WaitAdminApprove({super.key});
 
   @override
-  State<PaymentConfirmPage> createState() => _PaymentConfirmPageState();
+  State<WaitAdminApprove> createState() => _WaitAdminApproveState();
 }
 
-class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
+class _WaitAdminApproveState extends State<WaitAdminApprove> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfffef6eb),
       appBar: AppBar(
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xffF9A130),
+        backgroundColor: Color(0xfffef6eb),
         title: Text(
-          'Your Coverage has been reinstalled',
+          'Account Approval',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -35,9 +36,19 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
           SizedBox(height: 40,),
           Center(
             child: Text(
-              'Payment successful.\n Thank you for continuing with \nour service',
+              'Account Create successful.\n Thank you for continuing with \nour service',
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+                'Wait for Admin Approval !',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
@@ -48,7 +59,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
               Navigator.pop(context);
             },
             child: Text(
-              'Return to payment screen',
+              'Return to Home screen',
               style: TextStyle(color: Colors.black),
             ),
             style: ElevatedButton.styleFrom(

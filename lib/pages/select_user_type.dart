@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../auth_pages/user_auth.dart';
+import 'admin_login_page.dart';
 
 class SelectUserType extends StatefulWidget {
   const SelectUserType({super.key});
@@ -129,7 +130,25 @@ class _SelectUserTypeState extends State<SelectUserType> {
                   ),
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 110,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AdminLoginPage()),
+                    );
+                  },
+                  child: Text(
+                    'Admin login',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 2.0,
+                    ),
+                  ),
                 ),
               ],
             ),

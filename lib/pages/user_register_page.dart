@@ -22,41 +22,52 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
 
   postDetailsToFirestore() async {
     var user = FirebaseAuth.instance.currentUser;
-    CollectionReference user_register = FirebaseFirestore.instance.collection('login_users');
+    CollectionReference user_register =
+        FirebaseFirestore.instance.collection('login_users');
     user_register.doc(user?.uid).set({
-      'email':emailctrl.text,
-      'name':name.text,
-      'password':pass.text,
-      'address':'',
-      'contact':'',
-      'city':'',
-      'cardholder_name':'',
-      'card_number':'',
-      'expire_date':'',
-      'roal':widget.userType,
-      'approval':'Pending'
+      'email': emailctrl.text,
+      'name': name.text,
+      'password': pass.text,
+      'address': '',
+      'contact': '',
+      'city': '',
+      'cardholder_name': '',
+      'card_number': '',
+      'expire_date': '',
+      'roal': widget.userType,
+      'approval': 'Pending',
+      'insurancePremium':0,
+      'taxes':0
     });
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => UserAuthPage(userType: widget.userType,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => UserAuthPage(
+                  userType: widget.userType,
+                )));
   }
 
   // sign user up method
   void signUserUp() async {
     //show loading circle
     showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     // try creating the user
     try {
       // check if password is confirmed
-        FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailctrl.text,
-          password: pass.text,
-        ).then((value) => {postDetailsToFirestore()}).catchError((e){});
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailctrl.text,
+            password: pass.text,
+          )
+          .then((value) => {postDetailsToFirestore()})
+          .catchError((e) {});
 
       // pop the loading circle
       Navigator.pop(context);
@@ -71,17 +82,19 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
   // error message to user
   void showErrorMesaage(String message) {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.blueGrey,
-            title: Center(
-                child: Text(
-                  message,
-                  style: const TextStyle(color: Colors.white),
-                ),),
-          );
-        },);
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.blueGrey,
+          title: Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   bool isPasswordVisible = false;
@@ -89,220 +102,216 @@ class _UserRegiterPageState extends State<UserRegiterPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-          body: Container(
-            height: double.infinity,
-            width: double.infinity,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/registerback.png'),
-                fit: BoxFit.cover,
-              ),
+      child: Scaffold(
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/registerback.png'),
+              fit: BoxFit.cover,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 40,
+                ),
+                Image.asset('assets/images/logo2.png'),
+                Text(
+                  ' Insurease',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Image.asset('assets/images/logo2.png'),
-                  Text(
-                    ' Insurease',
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                  child: Text(
+                    "Name",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 40,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
-                    child: Text(
-                      "Name",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: TextField(
+                    controller: name,
+                    style: const TextStyle(color: Colors.black, fontSize: 17),
+                    decoration: InputDecoration(
+                      prefixIconConstraints: const BoxConstraints(minWidth: 45),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14.5),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 4),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: TextField(
-                      controller: name,
-                      style: const TextStyle(color: Colors.black, fontSize: 17),
-                      decoration: InputDecoration(
-                        prefixIconConstraints: const BoxConstraints(minWidth: 45),
-                        hintStyle:
-                        const TextStyle(color: Colors.black, fontSize: 14.5),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 4),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color:
-                              Colors.black),
-                        ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 200, 0),
+                  child: Text(
+                    "Email",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: TextField(
+                    controller: emailctrl,
+                    style: const TextStyle(color: Colors.black, fontSize: 17),
+                    decoration: InputDecoration(
+                      prefixIconConstraints: const BoxConstraints(minWidth: 45),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14.5),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 4),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 200, 0),
-                    child: Text(
-                      "Email",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 150, 0),
+                  child: Text(
+                    "Password",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: TextField(
-                      controller: emailctrl,
-                      style: const TextStyle(color: Colors.black, fontSize: 17),
-                      decoration: InputDecoration(
-                        prefixIconConstraints: const BoxConstraints(minWidth: 45),
-                        hintStyle:
-                        const TextStyle(color: Colors.black, fontSize: 14.5),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 4),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color:
-                              Colors.black),
-                        ),
-                      ),
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30).copyWith(
+                    bottom: 10,
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 150, 0),
-                    child: Text(
-                      "Password",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30)
-                        .copyWith(bottom: 10),
-                    child: TextField(
-                      controller: pass,
-                      style: const TextStyle(color: Colors.black, fontSize: 14.5),
-                      obscureText: isPasswordVisible ? false : true,
-                      decoration: InputDecoration(
-                        prefixIconConstraints: const BoxConstraints(minWidth: 45),
-                        suffixIconConstraints:
-                        const BoxConstraints(minWidth: 45, maxWidth: 46),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
+                  child: TextField(
+                    controller: pass,
+                    style: const TextStyle(color: Colors.black, fontSize: 14.5),
+                    obscureText: isPasswordVisible ? false : true,
+                    decoration: InputDecoration(
+                      prefixIconConstraints: const BoxConstraints(minWidth: 45),
+                      suffixIconConstraints:
+                          const BoxConstraints(minWidth: 45, maxWidth: 46),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(
+                            () {
                               isPasswordVisible = !isPasswordVisible;
-                            });
-                          },
-                          child: Icon(
-                            isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.black,
-                            size: 22,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        hintStyle:
-                        const TextStyle(color: Colors.black, fontSize: 14.5),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 4),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color:
-                              Colors.black),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      signUserUp();
-                    },
-                    child: Container(
-                      height: 53,
-                      width: 250,
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                          boxShadow: [
-                            BoxShadow(
-                                blurRadius: 4,
-                                color: Colors.black12.withOpacity(.2),
-                                offset: const Offset(2, 2))
-                          ],
-                          borderRadius: BorderRadius.circular(100),
-                          ),
-                      child: Text('Register',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Already Have Account?',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserLoginPage(
-                                userType: widget.userType,
-                              ),
-                            ),
+                            },
                           );
                         },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.black,
-                            decoration: TextDecoration.underline,
-                            decorationThickness: 2.0,
-                          ),
+                        child: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.black,
+                          size: 22,
                         ),
                       ),
-                    ],
+                      border: InputBorder.none,
+                      hintStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.5,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 4),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    signUserUp();
+                  },
+                  child: Container(
+                    height: 53,
+                    width: 250,
+                    margin: const EdgeInsets.symmetric(horizontal: 30),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.black12.withOpacity(.2),
+                          offset: const Offset(2, 2),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already Have Account?',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserLoginPage(
+                              userType: widget.userType,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.black,
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 2.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
+      ),
     );
   }
 }

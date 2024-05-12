@@ -2,6 +2,8 @@ import 'package:app/screens/add_claim.dart';
 import 'package:app/screens/widget/AppBarWidget.dart';
 import 'package:app/screens/widget/DrawerWidget.dart';
 import 'package:app/screens/widget/claim_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -20,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Claims> claimsList = [];
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -30,10 +33,13 @@ class _HomePageState extends State<HomePage> {
   // Method to fetch claims from Firestore
   void fetchClaims() async {
     List<Claims> claims = await Claims.getClaimsFromFirestore();
-    setState(() {
-      claimsList = claims; // Update the state with retrieved claims
-    });
+    setState(
+      () {
+        claimsList = claims; // Update the state with retrieved claims
+      },
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     int selectedIndex = 0;
@@ -49,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xffF5F5F5),
       body: RefreshIndicator(
-        onRefresh:() async {
+        onRefresh: () async {
           fetchClaims();
         },
         child: SingleChildScrollView(
@@ -95,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(
-                height: size.height * .25,
+                height: size.height * .17,
                 child: ListView.builder(
                   itemCount: plantList.length,
                   scrollDirection: Axis.horizontal,
@@ -112,25 +118,25 @@ class _HomePageState extends State<HomePage> {
                         //   );
                         // } else {
 
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              child: DetailPage(
-                                claimIndex: plantList[index].plantId,
-                              ),
-                              type: PageTransitionType.bottomToTop,
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: DetailPage(
+                              claimIndex: plantList[index].plantId,
                             ),
-                          );
+                            type: PageTransitionType.bottomToTop,
+                          ),
+                        );
                         // }
                       },
                       child: Container(
-                        width: 190,
+                        width: 200,
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           color:
-                          // plantList[index].isAdd
-                          //     ?
-                          // const Color(0xfffef6eb),
+                              // plantList[index].isAdd
+                              //     ?
+                              // const Color(0xfffef6eb),
                               Colors.white,
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -139,8 +145,7 @@ class _HomePageState extends State<HomePage> {
                             Positioned(
                               left: 50,
                               right: 50,
-                              top: 50,
-                              bottom: 50,
+                              bottom: 70,
                               child: Image.asset(
                                 plantList[index].imageURL,
                               ),
@@ -185,31 +190,30 @@ class _HomePageState extends State<HomePage> {
                             //       )
                             //     :
                             Positioned(
-                                    bottom: 15,
-                                    right: 20,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(
-                                          0xfffef6eb,
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        plantList[index].price.toString() +
-                                            r' Claim',
-                                        style: const TextStyle(
-                                          color: Color(0xfff9a130),
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
+                              bottom: 15,
+                              right: 20,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(
+                                    0xfffef6eb,
                                   ),
+                                  borderRadius: BorderRadius.circular(
+                                    20,
+                                  ),
+                                ),
+                                child: Text(
+                                  plantList[index].price.toString() + r' Claim',
+                                  style: const TextStyle(
+                                    color: Color(0xfff9a130),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -218,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
+                padding: const EdgeInsets.only(left: 16, bottom: 1, top: 15),
                 child: const Text(
                   'Recent Claims',
                   style: TextStyle(
@@ -229,7 +233,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                height: size.height * .5,
+                height: size.height * .265,
                 child: ListView.builder(
                   itemCount: claimsList.length,
                   scrollDirection: Axis.vertical,
@@ -252,6 +256,120 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
+              SizedBox(height: 30,),
+              Container(
+                height: 120,
+                child: StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('login_users')
+                      .doc(user?.uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    final DocumentSnapshot document = snapshot.data!;
+                    final Map<String, dynamic> data =
+                        document.data() as Map<String, dynamic>;
+                    double premium = data['insurancePremium'];
+                    double taxes = data['taxes'];
+                    double total = premium + taxes;
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 55, 5),
+                              child: Text(
+                                'Insurance Premium',
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 120,
+                              child: Text(
+                                'Rs: $premium',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 60, 5),
+                              child: Text(
+                                'Value Added Taxes',
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width:120,
+                              child: Text(
+                                'Rs: $taxes',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          thickness: 3.5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 114, 5),
+                              child: Text(
+                                'Total amount',
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width:120,
+                              child: Text(
+                                'Rs: $total',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  color: Color(0xff0A397E),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),
